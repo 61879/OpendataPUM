@@ -8,7 +8,6 @@ interface TileProps extends TileType {
 }
 
 const Tile = ({
-  datasetId,
   name,
   onPress,
   icon = 'clipboard',

@@ -3,7 +3,9 @@ import {datasets} from '../clients/urls';
 import Papa from 'papaparse';
 
 export const getBusStops = async () => {
-  const response = await httpClient.get(datasets.busStops);
+  const response = await httpClient.get(
+    `${datasets.busStops}/resources/?format=json`,
+  );
 
   if (response.data) {
     const parseCSV = fetch(response.data[0].file)

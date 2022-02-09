@@ -22,7 +22,7 @@ export const tiles: TileType[] = [
     name: 'Ładowarki samochodów elektryczych',
     icon: 'plug',
     color: 'orange',
-    route: 'BusStopsDetails',
+    route: 'CarChargersDetails',
   },
   {
     datasetId: datasets.outdoorGyms,

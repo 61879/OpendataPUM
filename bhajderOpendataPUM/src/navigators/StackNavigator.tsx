@@ -1,17 +1,15 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import DatasetDetailsScreen from '../screens/BusStopsDetailsScreen';
+import BusStopsDetailsScreen from '../screens/BusStopsDetailsScreen';
+import CarChargersDetailsScreen from '../screens/CarChargersDetailsScreen';
 import HomeScreen from '../screens/HomeScreen';
 
 export type RootStackParamList = {
   Home: undefined;
-  BusStopsDetails: {
-    name: string;
-  };
-  CarChargersDetails: {
-    name: string;
-  };
+  BusStopsDetails: undefined;
+  CarChargersDetails: undefined;
+  TicketMachines: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -27,7 +25,12 @@ const StackNavigator = () => {
         />
         <Stack.Screen
           name="BusStopsDetails"
-          component={DatasetDetailsScreen}
+          component={BusStopsDetailsScreen}
+          options={({route}) => ({headerTitle: route.params.name})}
+        />
+        <Stack.Screen
+          name="CarChargersDetails"
+          component={CarChargersDetailsScreen}
           options={({route}) => ({headerTitle: route.params.name})}
         />
       </Stack.Navigator>

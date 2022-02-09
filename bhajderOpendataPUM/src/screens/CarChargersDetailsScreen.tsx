@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {Table, TableWrapper, Cell} from 'react-native-table-component';
+import {Table, TableWrapper, Cell, Row} from 'react-native-table-component';
 import {useQuery} from 'react-query';
-import {getBusStops} from '../services/publicTransport';
+import {getCarChargers} from '../services/communalUtils';
 
-const BusStopsDetailsScreen = () => {
-  const {data, isLoading, isError} = useQuery('busStops', getBusStops);
+const CarChargersDetailsScreen = () => {
+  const {data, isLoading, isError} = useQuery('carChargers', getCarChargers);
 
   const openGps = (lat: number, lng: number) => {
     var scheme = Platform.OS === 'ios' ? 'maps:' : 'google.navigation:q=';
@@ -22,10 +22,13 @@ const BusStopsDetailsScreen = () => {
   };
 
   const element = (rowData: any) => (
-    <TouchableOpacity onPress={() => openGps(rowData[2], rowData[3])}>
-      <View>
-        <Text>{rowData[0]}</Text>
-      </View>
+    <TouchableOpacity onPress={() => openGps(rowData[4], rowData[5])}>
+      <TableWrapper style={styles.row}>
+        <Text style={{...styles.text, ...styles.lp}}>{rowData[0]}</Text>
+        <Text style={{...styles.text, ...styles.name}}>{rowData[1]}</Text>
+        <Text style={{...styles.text}}>{rowData[2]}</Text>
+        <Text style={{...styles.text}}>{rowData[3]}</Text>
+      </TableWrapper>
     </TouchableOpacity>
   );
 
@@ -36,10 +39,15 @@ const BusStopsDetailsScreen = () => {
       <ScrollView horizontal>
         {data?.data && (
           <View>
+            <Row
+              style={styles.head}
+              data={data.data[0].filter((v: any, i: number) => i < 4)}
+              widthArr={[50, 200, 100, 100]}
+            />
             <ScrollView>
               <Table>
                 {data.data
-                  .filter((v: any, i: number) => i > 0)
+                  .filter((v: any, i: number) => i > 3)
                   .map((rowData: any[], index: number) => (
                     <TableWrapper key={index} style={styles.row}>
                       <Cell data={element(rowData)} textStyle={styles.text} />
@@ -59,20 +67,26 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
   },
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingTop: 30,
-    backgroundColor: '#ffffff',
-  },
   head: {
-    height: 50,
+    height: 60,
     backgroundColor: '#ccc',
     padding: 10,
     width: '100%',
+    fontWeight: '600',
   },
   text: {
-    fontWeight: '800',
+    fontWeight: '400',
+    padding: 5,
+    width: 100,
+    textAlign: 'center',
+  },
+  lp: {
+    width: 50,
+    textAlign: 'left',
+  },
+  name: {
+    width: 200,
+    textAlign: 'left',
   },
   dataWrapper: {
     marginTop: -1,
@@ -86,4 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BusStopsDetailsScreen;
+export default CarChargersDetailsScreen;
