@@ -3,5 +3,5 @@ import {datasets} from '../clients/urls';
 
 export const getElectrowasteBins = async () => {
   const response = await httpClient.get(datasets.electrowasteBins);
-  return response;
+  return response.data;
 };

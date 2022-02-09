@@ -3,10 +3,10 @@ import {datasets} from '../clients/urls';
 
 export const getWateringPlaces = async () => {
   const response = await httpClient.get(datasets.wateringPlaces);
-  return response;
+  return response.data;
 };
 
 export const getPlaygrounds = async () => {
   const response = await httpClient.get(datasets.playgrounds);
-  return response;
+  return response.data;
 };

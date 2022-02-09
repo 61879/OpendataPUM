@@ -3,5 +3,5 @@ import {datasets} from '../clients/urls';
 
 export const getOutdoorGyms = async () => {
   const response = await httpClient.get(datasets.outdoorGyms);
-  return response;
+  return response.data;
 };
