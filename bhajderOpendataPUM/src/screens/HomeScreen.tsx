@@ -1,54 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, useColorScheme, StyleSheet, ScrollView} from 'react-native';
-import {datasets} from '../clients/urls';
-import Tile, {TileType} from '../components/Tile';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React, {useEffect} from 'react';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import Tile from '../components/Tile';
+import {tiles} from '../dto/tiles';
+import {RootStackParamList} from '../navigators/StackNavigator';
 
-const tiles: TileType[] = [
-  {
-    datasetId: datasets.busStops,
-    name: 'Przystanki autobusowe',
-    icon: 'bus',
-    onPress: () => {},
-    color: 'blue',
-  },
-  {
-    datasetId: datasets.electrowasteBins,
-    name: 'Kosze na elektroodpady',
-    icon: 'plug',
-    onPress: () => {},
-    color: 'orange',
-  },
-  {
-    datasetId: datasets.outdoorGyms,
-    name: 'Siłownie na wolnym powietrzu',
-    icon: 'fist-raised',
-    onPress: () => {},
-    color: 'green',
-  },
-  {
-    datasetId: datasets.playgrounds,
-    name: 'Place zabaw',
-    icon: 'child',
-    onPress: () => {},
-    color: 'orchid',
-  },
-  {
-    datasetId: datasets.ticketMachines,
-    name: 'Biletomaty',
-    icon: 'coins',
-    onPress: () => {},
-    color: 'navy',
-  },
-  {
-    datasetId: datasets.wateringPlaces,
-    name: 'Kąpieliska',
-    icon: 'swimmer',
-    onPress: () => {},
-    color: 'powderblue',
-  },
-];
+type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 const HomeScreen = () => {
+  const navigation = useNavigation<authScreenProp>();
   useEffect(() => {
     fetch('https://erzeszow.pl/');
   }, []);
@@ -61,9 +22,14 @@ const HomeScreen = () => {
             key={tile.datasetId}
             datasetId={tile.datasetId}
             name={tile.name}
-            onPress={tile.onPress}
+            onPress={() =>
+              navigation.navigate(tile.route, {
+                name: tile.name,
+              })
+            }
             icon={tile.icon}
             color={tile.color}
+            route={tile.route}
           />
         ))}
       </ScrollView>

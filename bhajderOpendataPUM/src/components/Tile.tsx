@@ -1,19 +1,10 @@
 import React from 'react';
-import {
-  GestureResponderEvent,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {TileType} from '../dto/tiles';
 
-export interface TileType {
-  datasetId: string;
-  name: string;
+interface TileProps extends TileType {
   onPress: () => void;
-  icon?: string;
-  color?: string;
 }
 
 const Tile = ({
@@ -22,7 +13,7 @@ const Tile = ({
   onPress,
   icon = 'clipboard',
   color = '#aaa',
-}: TileType) => {
+}: TileProps) => {
   return (
     <TouchableOpacity
       style={{...style.tile, backgroundColor: color || '#aaa'}}

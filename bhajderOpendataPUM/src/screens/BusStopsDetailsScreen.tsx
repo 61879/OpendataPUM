@@ -3,30 +3,17 @@ import {
   ScrollView,
   View,
   Text,
-  useColorScheme,
   Linking,
   Platform,
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
 import {Table, TableWrapper, Cell} from 'react-native-table-component';
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 import {useQuery} from 'react-query';
+import {getBusStops} from '../services/publicTransport';
 
-const DatasetDetailsScreen = ({
-  query,
-  queryKey,
-}: {
-  query: () => void;
-  queryKey: string;
-}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  const {data, isLoading, isError} = useQuery(queryKey, query);
+const DatasetDetailsScreen = ({route}: {route: any}) => {
+  const {data, isLoading, isError} = useQuery(route.params.name, getBusStops);
 
   const openGps = (lat: number, lng: number) => {
     var scheme = Platform.OS === 'ios' ? 'maps:' : 'google.navigation:q=';
