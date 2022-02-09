@@ -15,8 +15,3 @@ export const getBusStops = async () => {
   }
   return response.data;
 };
-
-export const getTicketMachines = async () => {
-  const response = await httpClient.get(datasets.ticketMachines);
-  return response.data;
-};

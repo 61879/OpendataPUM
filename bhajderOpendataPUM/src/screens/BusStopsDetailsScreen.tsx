@@ -33,6 +33,7 @@ const BusStopsDetailsScreen = () => {
     <View style={styles.viewWrapper}>
       {isLoading && <Text>Wczytywanie zawartości...</Text>}
       {isError && <Text>Błąd serwera...</Text>}
+      <Text>Wybierz przystanek z listy aby otworzyć nawigację:</Text>
       <ScrollView horizontal>
         {data?.data && (
           <View>
